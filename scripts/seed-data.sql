@@ -1,0 +1,80 @@
+-- Insert sample clients
+INSERT INTO clients (id, name, email, phone, address)
+VALUES 
+  ('11111111-1111-1111-1111-111111111111', 'Cameron Avenue Project', 'client1@example.com', '(416) 555-1234', '44 Cameron Ave, North York, ON M2N 1E1'),
+  ('22222222-2222-2222-2222-222222222222', 'Parr Place Project', 'client2@example.com', '(416) 555-5678', '125 Parr Pl, Vaughan, ON L4J 8L1'),
+  ('33333333-3333-3333-3333-333333333333', 'Glass Drive Project', 'client3@example.com', '(416) 555-9012', '57 Glass Dr, Aurora, ON L4G 2E7')
+ON CONFLICT (id) DO NOTHING;
+
+-- Insert sample invoices
+INSERT INTO invoices (
+  id, client_id, project_name, project_number, invoice_number, 
+  date, payment_condition, note, subtotal, discount, 
+  tax_rate, tax_amount, total, created_at
+)
+VALUES 
+  (
+    '44444444-4444-4444-4444-444444444444',
+    '11111111-1111-1111-1111-111111111111',
+    '44 Cameron Ave, North York, ON M2N 1E1',
+    'JOB#346-2517',
+    '1747',
+    '2024-05-29',
+    'According to the percentage of jobs completed',
+    'Material not included! Labor only.',
+    12600.00,
+    0.00,
+    13.00,
+    1638.00,
+    14238.00,
+    '2024-05-29 10:00:00'
+  ),
+  (
+    '55555555-5555-5555-5555-555555555555',
+    '22222222-2222-2222-2222-222222222222',
+    '125 Parr Pl, Vaughan, ON L4J 8L1',
+    'JOB#346-2516',
+    '1746',
+    '2024-05-25',
+    'According to the percentage of jobs completed',
+    'Material not included! Labor only.',
+    55770.00,
+    0.00,
+    13.00,
+    7250.10,
+    63020.10,
+    '2024-05-25 10:00:00'
+  ),
+  (
+    '66666666-6666-6666-6666-666666666666',
+    '33333333-3333-3333-3333-333333333333',
+    '57 Glass Dr, Aurora, ON L4G 2E7',
+    'JOB#346-2518',
+    '1748',
+    '2024-06-09',
+    'According to the percentage of jobs completed',
+    'Material not included! Labor only.',
+    25720.00,
+    1000.00,
+    13.00,
+    3213.60,
+    27933.60,
+    '2024-06-09 10:00:00'
+  )
+ON CONFLICT (id) DO NOTHING;
+
+-- Insert sample invoice items for Cameron Avenue
+INSERT INTO invoice_items (invoice_id, description, quantity, unit_price, line_total)
+VALUES 
+  ('44444444-4444-4444-4444-444444444444', 'Installation of 18 interior doors with casing, lockset and 4x4 regular hinges', 1, 5000.00, 5000.00),
+  ('44444444-4444-4444-4444-444444444444', 'Installation of casing 16 windows', 1, 1250.00, 1250.00),
+  ('44444444-4444-4444-4444-444444444444', 'Installation of all baseboard and shoe moulds', 1, 6350.00, 6350.00);
+
+-- Insert sample invoice items for Parr Place (first few items)
+INSERT INTO invoice_items (invoice_id, description, quantity, unit_price, line_total)
+VALUES 
+  ('55555555-5555-5555-5555-555555555555', 'Installation of 49 interior doors with casing backbend and lockset', 1, 17150.00, 17150.00),
+  ('55555555-5555-5555-5555-555555555555', 'Installation of casing and backbend for 31 windows', 1, 3720.00, 3720.00),
+  ('55555555-5555-5555-5555-555555555555', 'Build and installation of 11 arch opening at second floor', 1, 8800.00, 8800.00),
+  ('55555555-5555-5555-5555-555555555555', 'Installation of 2 pocket door with casing, backbend and lockset', 1, 1400.00, 1400.00),
+  ('55555555-5555-5555-5555
