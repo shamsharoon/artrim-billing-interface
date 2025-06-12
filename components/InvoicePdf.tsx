@@ -189,7 +189,7 @@ const formatCurrency = (amount: number) => {
 
 // PDF Document Component
 interface InvoicePdfProps {
-  invoice: Invoice & { clients: { name: string; address: string } };
+  invoice: Invoice & { clients: { address: string } };
   items: InvoiceItem[];
 }
 
@@ -218,12 +218,6 @@ const InvoicePdf: React.FC<InvoicePdfProps> = ({ invoice, items }) => {
 
           <View style={styles.projectInfoContainer}>
             <View style={styles.projectInfoRow}>
-              <Text style={styles.projectInfoLabel}>Project name</Text>
-              <Text style={styles.projectInfoValue}>
-                {invoice.project_name}
-              </Text>
-            </View>
-            <View style={styles.projectInfoRow}>
               <Text style={styles.projectInfoLabel}>Project number</Text>
               <Text style={styles.projectInfoValue}>
                 {invoice.project_number}
@@ -233,12 +227,6 @@ const InvoicePdf: React.FC<InvoicePdfProps> = ({ invoice, items }) => {
               <Text style={styles.projectInfoLabel}>Date</Text>
               <Text style={styles.projectInfoValue}>
                 {new Date(invoice.date).toLocaleDateString("en-CA")}
-              </Text>
-            </View>
-            <View style={styles.projectInfoRow}>
-              <Text style={styles.projectInfoLabel}>No.</Text>
-              <Text style={styles.projectInfoValue}>
-                {invoice.invoice_number}
               </Text>
             </View>
           </View>
