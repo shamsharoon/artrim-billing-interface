@@ -7,26 +7,33 @@ import InvoicePdf from "./InvoicePdf";
 import type { Invoice, InvoiceItem } from "@/lib/supabase";
 import { useState, useEffect } from "react";
 
-interface InvoicePdfPreviewProps {
-  invoice: Invoice & { clients: { name: string; address: string } };
-  items: InvoiceItem[];
-}
-
+/**
+ * Component to preview and download an invoice PDF.
+ * @param {Object} props - The props for the component.
+ * @param {Invoice & { clients: { name: string; address: string } }} props.invoice - The invoice data.
+ * @param {InvoiceItem[]} props.items - The items associated with the invoice.
+ */
 const InvoicePdfPreview: React.FC<InvoicePdfPreviewProps> = ({
   invoice,
   items,
 }) => {
-  const [isClient, setIsClient] = useState(false);
+  /**
+   * State to track if the component has rendered on the client side.
+   */
+  const [isClientRendered, setIsClientRendered] = useState(false);
 
+  /**
+   * Effect to set the state after initial render on the client.
+   */
   useEffect(() => {
-    setIsClient(true);
+    setIsClientRendered(true);
   }, []);
 
   return (
     <Card className="w-full">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>PDF Preview</CardTitle>
-        {isClient && (
+        {isClientRendered && (
           <PDFDownloadLink
             document={<InvoicePdf invoice={invoice} items={items} />}
             fileName={`invoice-${invoice.invoice_number}.pdf`}
@@ -45,7 +52,7 @@ const InvoicePdfPreview: React.FC<InvoicePdfPreviewProps> = ({
       </CardHeader>
       <CardContent>
         <div className="w-full h-[800px] border rounded-md overflow-hidden">
-          {isClient ? (
+          {isClientRendered ? (
             <PDFViewer width="100%" height="100%" className="w-full h-full">
               <InvoicePdf invoice={invoice} items={items} />
             </PDFViewer>
